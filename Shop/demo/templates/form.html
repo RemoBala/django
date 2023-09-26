@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+
+</head>
+
+<body style="background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3 class="mt-3 mb-3">Register form</h3>
+                <form id="loginform" method="post">
+                    <div class="form-group">
+                        <label for="firstname">Username</label>
+                        <input type="text" class="form-control" id="" name="uname" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname">First name</label>
+                        <input type="text" class="form-control" name="fname" placeholder="firstname">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" name="lname" placeholder="lastname">
+                    </div>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" class="form-control" placeholder="Enter email" name="email1">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">phone number</label>
+                        <input class="form-control"  name="phno1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="pass1" name="pswd" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Confirm Password</label>
+                        <input type="password" class="form-control" name="pswd1"
+                            placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date of Birth</label>
+                        <input type="date" class="form-control" name="date1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <textarea type="text-area" class="form-control"  name="address"
+                            placeholder="Address"></textarea>
+                    </div>
+                    <div class="form">
+                        <div class="form-group c">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" name="city" >
+                        </div>
+                        <div class="form-group">
+                            <label for="inputState">State</label>
+                            <select id="inputState" name="state" class="form-control">
+                                <option></option>
+                                <option>TamilNadu</option>
+                                <option>Kerala</option>
+                                <option>Karnataka</option>
+
+                            </select>
+                        </div>
+                        <div>
+                            <label class="mt-2" for="">Gender </label> <br>
+                            <input type="radio" id="gender" name="gender" value="male" /> Male
+
+                            <input type="radio" id="gender" name="gender" value="female" /> Female <br />
+
+                        </div>
+                        <div class="form-check mt-2 mb-2">
+                            <input type="checkbox" class="form-check-input" name="agree" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Agree and continue</label>
+                        </div>
+
+                        <button type="submit"  id="btn1" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+
+   
+
+              
+            jQuery.validator.addMethod("passwordCheck", function (value) {
+                var regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{6,}$/;
+                return regex.test(value);
+            });
+          
+            $.validator.addMethod("minAge", function (value, element, min) {
+                var today = new Date();
+                var birthDate = new Date(value);
+                var age = today.getFullYear() - birthDate.getFullYear();
+
+                if (age > min + 1) { return true; }
+
+                var m = today.getMonth() - birthDate.getMonth();
+
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) { age--; }
+
+                return age >= min;
+            }, "You are not old enough!");
+
+
+    
+            $.validator.addMethod("customemail",
+                function (value, element) {
+                    return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
+                },
+                "Sorry, I've enabled very strict email validation"
+            );
+
+
+            $.validator.addMethod("fname",
+                function (value, element) {
+                    return /^[a-zA-Z]+$/.test(value);
+                },
+                "Sorry, I've enabled very strict email validation"
+            );
+            $.validator.addMethod("pin",
+                function (value, element) {
+                    return /^[0-9]+$/.test(value);
+                },
+                "Sorry, I've enabled very strict email validation"
+            );
+
+        });
+
+        $().ready(function () {
+
+            jQuery.validator.addMethod("phone", function (value) {
+                var regex = /^(0|91)?[6-9][0-9]{9}$/;
+                return regex.test(value);
+            });
+
+
+            $("#loginform").validate({
+
+                
+                rules: {
+                    fname: {
+                        required: true,
+                        minlength : 3,
+                        fname: true
+                    },
+                    lname: {
+                        required: true,
+                        fname: true
+                    },
+                    uname: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 15,
+                                    
+                    },
+                    pswd: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 12,
+                        passwordCheck: true
+                    },
+                    pswd1: {
+                        required: true,
+
+                        equalTo:"#pass1"
+                    },
+                    email1: {
+                        required: true,
+                        customemail: true
+                    },
+                    address: {
+                        required: true,
+                        minlength: 10
+                    },
+                   
+                    phno1: {
+                        required: true,
+
+                        phone: true
+
+                    },
+                    state: {
+                        required: true
+
+                    },
+                    city: {
+                        required: true
+                    },
+                    pincode: {
+                        required: true,
+                        minlength: 6,
+                        pin: true
+                    },
+                    gender: {
+                        required: true
+                    },
+                    date1: {
+                        required: true,
+                        minAge: 18
+                    },
+                    agree: "required"
+                },
+                messages: {
+                    fname: {
+                        required: "enter your FirstName",
+                        minlength:"above 3 characters only",
+                        fname: "Only Alphabets(A to Z a to z)"
+
+                    },
+                    lname: {
+                        required: " Please enter your laststname",
+                        fname: "Only Alphabets(A to Z a to z)"
+                    },
+                    uname: {
+                        required: " Please enter a username",
+                        minlength: " Your username must consist of at least 2 characters",
+                       
+                    },
+                    pswd: {
+                        required: " enter Your password",
+                        minlength:" Your password must be 6 to 12 characters",
+                        maxlength :"Only 12 characters",
+                        passwordCheck : "One Uppercase One Number One special Characters and Lowercases "
+                    },
+                    pswd1: {
+                        required: " Please enter a password",
+                     
+                        equalTo: " Please enter the same password as above"
+                    },
+                    email1: {
+                        required: "Enter your Mail Id",
+                        customemail: "Please enter your Mail like(example123@gmail.com) "
+                    },
+                    address: {
+                        required: "Address is empty",
+                        minlength: "only 10 to 100 characters"
+                    },
+                   
+                    phno1: {
+                        required: "Enter Phone Number",
+                        phone: "please enter a valid phone number (Only 10 digits)"
+
+                    },
+                    state: {
+                        required: "Choose your State"
+
+                    },
+                    city: {
+                        required: "Choose your City"
+                    },
+                    pincode: {
+                        required: "Enter your Pincode",
+                        minlength: "invalid Pincode must be six digits",
+                        pin: "Enter Numbers only"
+
+                    },
+                    gender: {
+                        required: "Select your Gender"
+                    },
+                    date1: {
+                        required: "Choose your DOB",
+                        minAge: "Must Be 18 Years Above"
+                    },
+                    agree: 
+                    {
+                        required :"click this box",
+                    }
+                        
+                    
+                }
+            });
+        });
+
+
+
+
+    </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <style>
+        .error {
+            color: red;
+            font-style: italic;
+            
+
+        }
+    </style>
+
+</body>
+
+</html>
